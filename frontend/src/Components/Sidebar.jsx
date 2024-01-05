@@ -36,8 +36,8 @@ const Sidebar = () => {
                     </Link>
                 </ListItem>
                 <ListItem>
-                    <Link as={RouterLink} to="/logout">
-                        Logout
+                    <Link as={RouterLink} to="/login">
+                        Login
                     </Link>
                 </ListItem>
 

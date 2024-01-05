@@ -7,8 +7,9 @@ function App() {
       <div >
         <Sidebar />
       </div>
-      <div style={{ margin: 'auto' }}>
+      <div style={{ margin: 'auto' , width: '70%'}}>
         <Home />
+            
       </div>
     </div >
     // <Dashboard />
