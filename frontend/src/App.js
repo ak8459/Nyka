@@ -1,6 +1,6 @@
 import Home from './Components/Home'
 import Sidebar from './Components/Sidebar';
-import Dashboard from './Components/Dashboard';
+// import Dashboard from './Components/Dashboard';
 function App() {
   return (
     <div className="App" style={{ display: 'flex', justifyContent: 'space-around' }}>
