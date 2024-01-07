@@ -31,15 +31,19 @@ const Login = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        fetch('https://blogs-backend-iffz.onrender.com/api/login', {
+        fetch('http://localhost:8080/api/login', {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {
                 'Content-Type': 'application/json'
             }
         }).then(res => res.json()).then(data => {
-            alert('Logged in successfully!')
+            console.log(data)
+            // alert('Logged in successfully!')
+        }).catch(err => {
+            console.log(err)
         })
+
     }
 
 
@@ -47,7 +51,7 @@ const Login = () => {
 
     return <>
         <Center>
-            <Container  m={{ base: '0', sm: '8' }} maxW="lg" py={{ base: '10', md: '20' }} px={{ base: '0', sm: '8' }} boxShadow={{ base: 'none', sm: 'md' }}
+            <Container m={{ base: '0', sm: '8' }} maxW="lg" py={{ base: '10', md: '20' }} px={{ base: '0', sm: '8' }} boxShadow={{ base: 'none', sm: 'md' }}
                 borderRadius={{ base: 'none', sm: 'xl' }}>
                 <Stack spacing="8">
                     <Stack spacing="6">
@@ -63,8 +67,8 @@ const Login = () => {
                         py={{ base: '0', sm: '4' }}
                         px={{ base: '4', sm: '10' }}
                         bg={{ base: 'transparent', sm: 'bg.surface' }}
-                        // boxShadow={{ base: 'none', sm: 'md' }}
-                        // borderRadius={{ base: 'none', sm: 'xl' }}
+                    // boxShadow={{ base: 'none', sm: 'md' }}
+                    // borderRadius={{ base: 'none', sm: 'xl' }}
                     >
                         <Stack spacing="6">
 

@@ -7,17 +7,16 @@ const auth = async (req, res, next) => {
         if (token) {
             let user = jwt.verify(token, 'marvel');
             // const User = await userModel.findOne({ email: user.email, 'tokens.token': token });
-            const User = await userModel.findOne({ email: user.email,});
-           
+            const User = await userModel.findOne({ email: user.email, });
+
             req.body.userId = user.userId
-         
             req.user = User;
             req.token = token;
 
             next();
 
         } else {
-            return res.status(401).send({ "error": "Please login first" })
+            return res.status(401).send({ error: "Please login first" })
         }
 
 

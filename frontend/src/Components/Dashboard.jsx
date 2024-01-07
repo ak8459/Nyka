@@ -7,8 +7,18 @@ import {
     FormHelperText, Select
 } from '@chakra-ui/react';
 import { Container, Stack, Button } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
 
 const Dashboard = () => {
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        fetch('https://nykabackend.onrender.com/api/products')
+            .then((res) => res.json())
+            .then((data) => setData(data))
+    }, [])
+    console.log(data);
+
     return (
         <div >
             <div className='top' style={{ marginTop: '20px', display: 'flex', justifyContent: 'space-between' }}>

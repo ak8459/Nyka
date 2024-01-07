@@ -40,7 +40,7 @@ const loginUser = async (req, res) => {
             if (result) {
                 const token = jsonwebtoken.sign({ email: user.email, userId: user._id }, 'marvel', { expiresIn: '5day' });
                 res.cookie('token', token, { httpOnly: true }).status(200);
-                res.status(201).json({ msg: "Login successful", token });
+                res.status(201).json({ msg: "Login successful", token ,user});
             } else {
                 res.status(400).json({ msg: "Either email or password is incorrect!" });
             }
