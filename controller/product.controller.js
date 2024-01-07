@@ -27,8 +27,9 @@ const getProducts = async (req, res) => {
 
         const sortOrder = req.query.sortOrder === 'asc' ? 1 : -1;
         const sort = { ['price']: sortOrder };
-        const productCount = await Product.find().countDocuments()
-        const products = await Product.find(query).sort(sort).skip(skip).limit(limit);
+        const productInstance = await Product.find(query)
+        const pageCount = productInstance.countDocuments();
+        const products = productInstance.sort(sort).skip(skip).limit(limit);
 
 
 
@@ -36,7 +37,7 @@ const getProducts = async (req, res) => {
             return res.status(404).json({ msg: "No products found!" })
         }
 
-        res.status(200).json({ page, limit, products, productCount });
+        res.status(200).json({ page, limit, products, pageCount });
 
     } catch (error) {
         res.status(501).json({ msg: error.message });
