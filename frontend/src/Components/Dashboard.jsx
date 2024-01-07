@@ -17,22 +17,20 @@ const Dashboard = () => {
     const [sortOrder, setSort] = useState('asc')
     const [gender, setGender] = useState('')
     const [category, setCategory] = useState('')
-    const [page, setPage] = useState(1)
-
+    const [currentPage, setCurrentPage] = useState(1)
 
 
     const dispatch = useDispatch()
     const userInfo = useSelector((state) => state.authReducer)
     // console.log(userInfo)
-    const products = useSelector((state) => state.productReducer.products)
-    console.log(products)
-    const totalPages = Math.ceil(products.length / 2);
-    console.log(totalPages);
+    const state = useSelector((state) => state.productReducer)
+    const { products, page, pageCount } = state
+    console.log(products);
     useEffect(() => {
         try {
             const queryParams = {
-                page: page, // You might want to adjust this based on your pagination logic
-                limit: 2,
+                page: currentPage,
+                limit: 2
             };
 
             gender && (queryParams.gender = gender)
@@ -47,12 +45,9 @@ const Dashboard = () => {
             console.log(error)
         }
 
-    }, [gender, category, search, sortOrder, page])
+    }, [gender, category, search, sortOrder, currentPage])
 
 
-    const handleNext = () => {
-        setPage(page + 1)
-    }
 
     return (
         <div >
@@ -95,10 +90,10 @@ const Dashboard = () => {
                         </Button>
                     </Stack>
                 </Container>
-                {console.log(page, totalPages, 98)}
-                <Button disabled={page === totalPages} onClick={handleNext}>next</Button>
+                {/* {console.log(page, totalPages, 98)} */}
+                <Button isDisabled={page === pageCount} onClick={() => setCurrentPage(page + 1)}>next</Button>
                 <p>{page}</p>
-                <Button onClick={() => setPage(page - 1)}>prev</Button>
+                <Button onClick={() => setCurrentPage(page - 1)}>prev</Button>
             </div>
         </div>
     )
