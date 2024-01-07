@@ -7,17 +7,22 @@ import {
     FormHelperText, Select
 } from '@chakra-ui/react';
 import { Container, Stack, Button } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
-
+import { useEffect, } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { getProducts } from '../Redux/ProductReducer/action';
 const Dashboard = () => {
-    const [data, setData] = useState([]);
+
+    const dispatch = useDispatch()
+    const userInfo = useSelector((state) => state.authReducer)
+    // console.log(userInfo)
+    const products = useSelector((state) => state.productReducer.products)
+    console.log(products)
+
 
     useEffect(() => {
-        fetch('https://nykabackend.onrender.com/api/products')
-            .then((res) => res.json())
-            .then((data) => setData(data))
+        dispatch(getProducts())
     }, [])
-    console.log(data);
+
 
     return (
         <div >

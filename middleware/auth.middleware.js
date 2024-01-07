@@ -21,13 +21,6 @@ const auth = async (req, res, next) => {
 
 
 
-        // Attach the user and token to the request for further use
-        // req.user = user;
-        // req.token = token;
-
-        // Continue with the route handler
-
-
     } catch (error) {
 
         res.status(400).send({ "error": error })

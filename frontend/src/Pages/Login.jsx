@@ -14,35 +14,39 @@ import {
     Stack,
     Text,
 } from '@chakra-ui/react'
-import { useState } from 'react'
-
-
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { login } from '../Redux/AuthReduxer/action'
+import { getProducts } from '../Redux/ProductReducer/action'
 const initialData = {
-
     email: '',
     password: '',
-
 }
 
 
 const Login = () => {
     const [data, setData] = useState(initialData)
 
+    const dispatch = useDispatch()
+
+
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        fetch('http://localhost:8080/api/login', {
-            method: 'POST',
-            body: JSON.stringify(data),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then(res => res.json()).then(data => {
-            console.log(data)
-            // alert('Logged in successfully!')
-        }).catch(err => {
-            console.log(err)
-        })
+        // fetch('https://nykabackend.onrender.com/api/login', {
+        //     method: 'POST',
+        //     body: JSON.stringify(data),
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     }
+        // }).then(res => res.json()).then(data => {
+        //     console.log(data)
+        //     // alert('Logged in successfully!')
+        // }).catch(err => {
+        //     console.log(err)
+        // })
+        dispatch(login(data))
+
 
     }
 

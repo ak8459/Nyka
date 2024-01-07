@@ -31,7 +31,10 @@ const loginUser = async (req, res) => {
     const { email, password } = req.body;
 
     try {
-        console.log(email, password);
+        if (!email || !password) {
+            return res.status(400).json({ msg: "Please enter email and password" });
+        }
+
         const user = await User.findOne({ email });
         if (!user) {
             return res.status(400).json({ msg: "User does not exist" });
@@ -40,7 +43,7 @@ const loginUser = async (req, res) => {
             if (result) {
                 const token = jsonwebtoken.sign({ email: user.email, userId: user._id }, 'marvel', { expiresIn: '5day' });
                 res.cookie('token', token, { httpOnly: true }).status(200);
-                res.status(201).json({ msg: "Login successful", token ,user});
+                res.status(201).json({ msg: "Login successful", token, user });
             } else {
                 res.status(400).json({ msg: "Either email or password is incorrect!" });
             }
