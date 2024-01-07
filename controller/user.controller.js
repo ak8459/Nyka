@@ -29,14 +29,17 @@ const registerUser = async (req, res) => {
 
 const loginUser = async (req, res) => {
     const { email, password } = req.body;
+
     try {
+        console.log(email, password);
         const user = await User.findOne({ email });
         if (!user) {
             return res.status(400).json({ msg: "User does not exist" });
         }
         bcrypt.compare(password, user.password, (err, result) => {
             if (result) {
-                const token = jsonwebtoken.sign({ email: user.email, userId: user._id }, 'user-key', { expiresIn: '7d' });
+                const token = jsonwebtoken.sign({ email: user.email, userId: user._id }, 'marvel', { expiresIn: '5day' });
+                res.cookie('token', token, { httpOnly: true }).status(200);
                 res.status(201).json({ msg: "Login successful", token });
             } else {
                 res.status(400).json({ msg: "Either email or password is incorrect!" });

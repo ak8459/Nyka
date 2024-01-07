@@ -7,7 +7,8 @@ const userRouter = express.Router();
 // const { BlackListModel } = require('../model/token.model')
 
 
-// userRouter.use(auth)
+userRouter.use('/products', auth)
+
 userRouter.post('/register', registerUser)
 userRouter.post('/login', loginUser)
 userRouter.get('/products', getProducts)

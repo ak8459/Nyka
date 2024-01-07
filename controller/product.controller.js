@@ -2,14 +2,43 @@ const Product = require('../model/product.model');
 
 const getProducts = async (req, res) => {
 
-    try {
 
-        const products = await Product.find();
-        res.status(200).json({ msg: products });
+    try {
+        const gender = req.query.gender;
+        const category = req.query.category;
+        const search = req.query.search;
+
+        let query = {}
+
+        if (req.body.userId) {
+
+            query.userId = req.body.userId
+            if (gender) query.gender = gender;
+            if (category) query.category = category;
+            if (search) query.name = { $regex: new RegExp(search, 'i') };;
+        }
+        console.log(search)
+
+        // pagination
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 10;
+        const skip = (page - 1) * limit;
+
+
+        const sortOrder = req.query.sortOrder === 'asc' ? 1 : -1;
+        const sort = { ['price']: sortOrder };
+
+        const products = await Product.find(query).sort(sort).skip(skip).limit(limit)
+
+
+        if (products.length === 0) {
+            return res.status(404).json({ msg: "No products found!" })
+        }
+
+        res.status(200).json({ page, limit, products: products });
 
     } catch (error) {
-
-        res.status(500).json({ msg: error.message });
+        res.status(501).json({ msg: error.message });
     }
 
 
@@ -58,4 +87,4 @@ const deleteProduct = async (req, res) => {
 }
 
 
-module.exports = { getProducts, addProduct, getSingleProduct, updateProduct ,deleteProduct}
+module.exports = { getProducts, addProduct, getSingleProduct, updateProduct, deleteProduct }

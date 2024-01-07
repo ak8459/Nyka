@@ -6,7 +6,8 @@ import {
     FormErrorMessage,
     FormHelperText, Select
 } from '@chakra-ui/react';
-import { Button, ButtonGroup, Stack } from '@chakra-ui/react'
+import { Container, Stack, Button } from '@chakra-ui/react';
+
 const Dashboard = () => {
     return (
         <div >
@@ -14,8 +15,8 @@ const Dashboard = () => {
                 <div>
                     <Input type='email' placeholder='Search' borderColor={'gray'} w={'600px'} borderRadius={'0px'} bg={'white'} p={'10px'} />
                 </div>
-                <div>
-                    <img src="../img/uifaces-popular-image.jpg" style={{ width: '30px', height: '30px' }} alt="" />
+                <div className='img-div'>
+                    <img src="../img/imgw.jpg" style={{ width: '35px', height: '35px' }} alt="not found!" />
                 </div>
 
 
@@ -41,12 +42,14 @@ const Dashboard = () => {
                     </Flex>
                 </FormControl>
             </section>
-            <div className='addProductbtn' style={{ marginTop: '40px', textAlign: 'left' }} >
-                <Stack direction='row' spacing={4} >
-                    <Button colorScheme='#32324714' variant='solid'  w={'200px'}>
-                        Add product
-                    </Button>
-                </Stack>
+            <div className='addProductbtn' style={{ marginLeft: '80%' }} >
+                <Container maxW="lg">
+                    <Stack direction='row' spacing={4} mt={20}>
+                        <Button colorScheme='teal' variant='solid' w={'200px'}>
+                            ADD PRODUCT
+                        </Button>
+                    </Stack>
+                </Container>
             </div>
         </div>
     )
