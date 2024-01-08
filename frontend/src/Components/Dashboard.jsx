@@ -25,12 +25,12 @@ const Dashboard = () => {
     // console.log(userInfo)
     const state = useSelector((state) => state.productReducer)
     const { products, page, pageCount } = state
-    console.log(products);
+
     useEffect(() => {
         try {
             const queryParams = {
                 page: currentPage,
-                limit: 2
+                limit: 1
             };
 
             gender && (queryParams.gender = gender)
@@ -93,7 +93,7 @@ const Dashboard = () => {
                 {/* {console.log(page, totalPages, 98)} */}
                 <Button isDisabled={page === pageCount} onClick={() => setCurrentPage(page + 1)}>next</Button>
                 <p>{page}</p>
-                <Button onClick={() => setCurrentPage(page - 1)}>prev</Button>
+                <Button isDisabled={page === 1} onClick={() => setCurrentPage(page - 1)}>prev</Button>
             </div>
         </div>
     )

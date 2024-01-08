@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 const User = require('../model/user.model');
 const jsonwebtoken = require('jsonwebtoken');
+require('dotenv').config()
 
 const registerUser = async (req, res) => {
     const { name, email, password, avatar, } = req.body;
@@ -41,7 +42,7 @@ const loginUser = async (req, res) => {
         }
         bcrypt.compare(password, user.password, (err, result) => {
             if (result) {
-                const token = jsonwebtoken.sign({ email: user.email, userId: user._id }, 'marvel', { expiresIn: '5day' });
+                const token = jsonwebtoken.sign({ email: user.email, userId: user._id }, process.env.JWT_SECRET_KEY, { expiresIn: '5day' });
                 res.cookie('token', token, { httpOnly: true }).status(200);
                 res.status(201).json({ msg: "Login successful", token, user });
             } else {
