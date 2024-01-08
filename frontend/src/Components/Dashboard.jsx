@@ -11,6 +11,7 @@ import { useEffect, useState, } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getProducts } from '../Redux/ProductReducer/action';
 import { useSearchParams } from 'react-router-dom';
+import Pagination from './pagination';
 const Dashboard = () => {
     const [searchParams] = useSearchParams();
     const [search, setSearch] = useState('')
@@ -25,7 +26,7 @@ const Dashboard = () => {
     // console.log(userInfo)
     const state = useSelector((state) => state.productReducer)
     const { products, page, pageCount } = state
-
+    console.log(products);
     useEffect(() => {
         try {
             const queryParams = {
@@ -91,9 +92,8 @@ const Dashboard = () => {
                     </Stack>
                 </Container>
                 {/* {console.log(page, totalPages, 98)} */}
-                <Button isDisabled={page === pageCount} onClick={() => setCurrentPage(page + 1)}>next</Button>
-                <p>{page}</p>
-                <Button isDisabled={page === 1} onClick={() => setCurrentPage(page - 1)}>prev</Button>
+
+                <Pagination page={page} pageCount={pageCount} setCurrentPage={setCurrentPage} />
             </div>
         </div>
     )
