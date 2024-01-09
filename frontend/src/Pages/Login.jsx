@@ -13,29 +13,46 @@ import {
     Link,
     Stack,
     Text,
+    useToast
 } from '@chakra-ui/react'
 import { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { login } from '../Redux/AuthReduxer/action'
 
-const initialData = {
-    email: 'akash@gmail.com',
-    password: 'akash123',
-}
+import { Link as RouterLink, useNavigate } from 'react-router-dom'; // If you're using React Router, import Link from react-router-dom
 
+
+const initialData = {
+    email: '',
+    password: '',
+}
+// email: 'akash@gmail.com',
+//     password: 'akash123',
 const Login = () => {
     const [data, setData] = useState(initialData)
-
     const dispatch = useDispatch();
+    const toast = useToast();
+    let navigate = useNavigate();
+    const userInfo = useSelector((state) => state.authReducer)
+    // console.log(userInfo)
     const handleSubmit = (e) => {
         e.preventDefault()
-        dispatch(login(data))
+     
+            dispatch(login(data))
 
-
+            toast({
+                title: 'Login Successful',
+                description: 'Logged in successfully!',
+                status: 'success',
+                duration: 3000, // Display duration in milliseconds
+                isClosable: true,
+            });
+            setTimeout(() => {
+                navigate('/dashboard')
+            }, 500)
+        
+        // navigate('/dashboard')
     }
-
-
-
 
     return <>
         <Center>
@@ -47,7 +64,7 @@ const Login = () => {
                         <Stack spacing={{ base: '2', md: '3' }} textAlign="center">
                             <Heading size={{ base: 'xs', md: 'xl' }}>Sign into your account</Heading>
                             <Text color="fg.muted">
-                                Don't have an account? <Link href="#">Sign up</Link>
+                                Don't have an account? <Link as={RouterLink} to="/register">Sign up</Link>
                             </Text>
                         </Stack>
                     </Stack>
@@ -59,8 +76,6 @@ const Login = () => {
                     // borderRadius={{ base: 'none', sm: 'xl' }}
                     >
                         <Stack spacing="6">
-
-
                             <Stack spacing="5">
                                 <FormControl>
                                     <FormLabel htmlFor="email">Email</FormLabel>
@@ -69,8 +84,8 @@ const Login = () => {
                             </Stack>
                             <Stack spacing="5">
                                 <FormControl>
-                                    <FormLabel htmlFor="email">Password</FormLabel>
-                                    <Input id="email" type="email" value={data.password} onChange={(e) => setData({ ...data, password: e.target.value })} />
+                                    <FormLabel htmlFor="password">Password</FormLabel>
+                                    <Input id="password" type="password" value={data.password} onChange={(e) => setData({ ...data, password: e.target.value })} />
                                 </FormControl>
                             </Stack>
 

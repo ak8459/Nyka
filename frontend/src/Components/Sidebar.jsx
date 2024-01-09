@@ -1,10 +1,11 @@
 import { Box, Heading, Link, List, ListItem, Image } from '@chakra-ui/react';
+import { useSelector } from 'react-redux';
 import { Link as RouterLink, useNavigate } from 'react-router-dom'; // If you're using React Router, import Link from react-router-dom
 
 const Sidebar = () => {
-
+    const userInfo = useSelector((state) => state.authReducer)
+    console.log(userInfo)
     return (<>
-        <img src="" alt="" />
         <Box
             as="nav"
             h="100%"
@@ -36,9 +37,13 @@ const Sidebar = () => {
                     </Link>
                 </ListItem>
                 <ListItem>
-                    <Link as={RouterLink} to="/login">
-                        Login
-                    </Link>
+
+                    {userInfo.isAuthenticated ? <Link as={RouterLink} to="/logout">Logout</Link> :
+
+                        <Link as={RouterLink} to="/login">
+                            Login
+                        </Link>
+                    }
                 </ListItem>
 
 
