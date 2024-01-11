@@ -42,7 +42,7 @@ const loginUser = async (req, res) => {
         }
         bcrypt.compare(password, user.password, (err, result) => {
             if (result) {
-                const token = jsonwebtoken.sign({ user }, process.env.JWT_SECRET_KEY, { expiresIn: '5day' });
+                const token = jsonwebtoken.sign({ user }, process.env.JWT_SECRET_KEY, { expiresIn: '2min' });
                 res.cookie('token', token, { httpOnly: true }).status(200);
                 res.status(201).json({ msg: "Login successful", token });
             } else {
@@ -56,8 +56,8 @@ const loginUser = async (req, res) => {
 
 const logoutUser = (req, res) => {
     try {
-        res.clearCookie('token');
-        res.status(200).json({ msg: "Logout successful" });
+        res.clearCookie('token', { httpOnly: true }).status(200).json({ msg: "Logout successful" });
+        // res.status(200).json({ msg: "Logout successful" });
     } catch (error) {
         res.status(500).json({ msg: error.message });
     }

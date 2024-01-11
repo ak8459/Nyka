@@ -4,7 +4,7 @@ import { Link as RouterLink, useNavigate } from 'react-router-dom'; // If you're
 
 const Sidebar = () => {
     const userInfo = useSelector((state) => state.authReducer)
-    console.log(userInfo)
+    // console.log(userInfo)
     return (<>
         <Box
             as="nav"
