@@ -15,6 +15,7 @@ import AddProduct from './AddProduct';
 import Loading from './Loading';
 const Dashboard = () => {
     const [searchParams] = useSearchParams();
+    // const [page1, setPage1] = useState(Number(searchParams.get("page")));
     const [search, setSearch] = useState('')
     const [sortOrder, setSort] = useState('asc')
     const [gender, setGender] = useState('')
@@ -29,7 +30,7 @@ const Dashboard = () => {
     const state = useSelector((state) => state.productReducer)
     const { products, page, pageCount } = state
 
-
+    // console.log(page1);
 
     // console.log(userInfo);
     useEffect(() => {
@@ -56,7 +57,7 @@ const Dashboard = () => {
 
     return <div>
         {
-            userInfo?.isAuthenticated ? (
+            userInfo?.token ? (
                 < div >
                     <div className='top' style={{ marginTop: '20px', display: 'flex', justifyContent: 'space-between' }}>
                         <div>

@@ -22,6 +22,8 @@ import { login } from '../Redux/AuthReduxer/action'
 import { Link as RouterLink, useNavigate } from 'react-router-dom'; // If you're using React Router, import Link from react-router-dom
 
 
+// import { jwtDecode } from "jwt-decode";
+
 const initialData = {
     email: '',
     password: '',
@@ -33,25 +35,27 @@ const Login = () => {
     const dispatch = useDispatch();
     const toast = useToast();
     let navigate = useNavigate();
-    const userInfo = useSelector((state) => state.authReducer)
-    // console.log(userInfo)
+
+
+    // const decoded = jwtDecode(token);
+
     const handleSubmit = (e) => {
         e.preventDefault()
-     
-            dispatch(login(data))
 
-            toast({
-                title: 'Login Successful',
-                description: 'Logged in successfully!',
-                status: 'success',
-                duration: 3000, // Display duration in milliseconds
-                isClosable: true,
-            });
-            setTimeout(() => {
-                navigate('/dashboard')
-            }, 500)
-        
-        // navigate('/dashboard')
+        dispatch(login(data))
+
+        toast({
+            title: 'Login Successful',
+            description: 'Logged in successfully!',
+            status: 'success',
+            duration: 3000, // Display duration in milliseconds
+            isClosable: true,
+        });
+
+        navigate('/dashboard')
+
+
+
     }
 
     return <>

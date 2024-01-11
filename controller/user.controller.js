@@ -42,9 +42,9 @@ const loginUser = async (req, res) => {
         }
         bcrypt.compare(password, user.password, (err, result) => {
             if (result) {
-                const token = jsonwebtoken.sign({ email: user.email, userId: user._id }, process.env.JWT_SECRET_KEY, { expiresIn: '5day' });
+                const token = jsonwebtoken.sign({ user }, process.env.JWT_SECRET_KEY, { expiresIn: '5day' });
                 res.cookie('token', token, { httpOnly: true }).status(200);
-                res.status(201).json({ msg: "Login successful", token, user });
+                res.status(201).json({ msg: "Login successful", token });
             } else {
                 res.status(400).json({ msg: "Either email or password is incorrect!" });
             }
@@ -54,4 +54,17 @@ const loginUser = async (req, res) => {
     }
 }
 
-module.exports = { loginUser, registerUser }
+const logoutUser = (req, res) => {
+    try {
+        res.clearCookie('token');
+        res.status(200).json({ msg: "Logout successful" });
+    } catch (error) {
+        res.status(500).json({ msg: error.message });
+    }
+}
+
+
+
+
+
+module.exports = { loginUser, registerUser, logoutUser }

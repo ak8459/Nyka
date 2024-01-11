@@ -38,7 +38,7 @@ const Sidebar = () => {
                 </ListItem>
                 <ListItem>
 
-                    {userInfo.isAuthenticated ? <Link as={RouterLink} to="/logout">Logout</Link> :
+                    {userInfo.token ? <Link as={RouterLink} to="/logout">Logout</Link> :
 
                         <Link as={RouterLink} to="/login">
                             Login

@@ -21,8 +21,6 @@ const auth = async (req, res, next) => {
             return res.status(401).send({ error: "Please login first" })
         }
 
-
-
     } catch (error) {
 
         res.status(400).send({ "error": error })

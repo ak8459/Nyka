@@ -9,7 +9,6 @@ import SingleProduct from '../Pages/SingleProduct'
 const Home = () => {
     return (
         <Routes>
-
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<RegisterPage />} />
             <Route path='/product/singleproduct/:id' element={<PrivatePage> <SingleProduct /> </PrivatePage>} />
