@@ -9,10 +9,10 @@ const auth = async (req, res, next) => {
         if (token) {
             let user = jwt.verify(token, process.env.JWT_SECRET_KEY);
             // const User = await userModel.findOne({ email: user.email, 'tokens.token': token });
-            const User = await userModel.findOne({ email: user.email, });
-
-            req.body.userId = user.userId
-            req.user = User;
+            // const User = await userModel.findOne({ email: user.user.email, });
+            console.log(user);
+            req.body.userId = user.user._id
+            req.user = user.user;
             req.token = token;
 
             next();
