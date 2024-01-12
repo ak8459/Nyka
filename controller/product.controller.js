@@ -17,7 +17,7 @@ const getProducts = async (req, res) => {
             if (category) query.category = category;
             if (search) query.name = { $regex: new RegExp(search, 'i') };;
         }
-        console.log(search)
+        
 
         // pagination
         const page = parseInt(req.query.page) || 1;
